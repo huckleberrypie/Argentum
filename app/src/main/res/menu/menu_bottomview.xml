@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home" android:id="@+id/bottomHome"
-        android:icon="@drawable/ic_home"/>
+    <item android:title="Dolls" android:id="@+id/bottomDolls"
+        android:icon="@drawable/ic_face_black_24dp"/>
 
-    <item android:title="Favorites" android:id="@+id/bottomFavorites"
-        android:icon="@drawable/ic_favorite"/>
+    <item android:title="Clothes" android:id="@+id/bottomClothes"
+        android:icon="@drawable/ic_clothing_black_24dp"/>
+
+    <item android:title="Accessories" android:id="@+id/bottomAccessories"
+        android:icon="@drawable/ic_accessories_black_24dp"/>
+
+    <item android:title="Books" android:id="@+id/bottomBooks"
+        android:icon="@drawable/ic_book_black_24dp"/>
 
     <item android:title="About" android:id="@+id/bottomAbout"
         android:enabled="true"

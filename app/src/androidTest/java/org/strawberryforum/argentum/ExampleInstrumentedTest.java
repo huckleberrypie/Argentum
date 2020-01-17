@@ -1,4 +1,4 @@
-package com.vipulasri.bottomnavigationview;
+package org.strawberryforum.argentum;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.vipulasri.bottomnavigationview", appContext.getPackageName());
+        assertEquals("org.strawberryforum.argentum", appContext.getPackageName());
     }
 }

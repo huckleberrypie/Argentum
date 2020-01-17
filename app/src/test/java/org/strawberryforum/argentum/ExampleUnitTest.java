@@ -1,4 +1,4 @@
-package com.vipulasri.bottomnavigationview;
+package org.strawberryforum.argentum;
 
 import org.junit.Test;
 
