@@ -20,7 +20,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout> -->
-
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.BottomNavigationView
@@ -32,6 +31,7 @@
         app:itemIconTint="@color/bottomview_color_state_list"
         app:itemTextColor="@color/bottomview_color_state_list"
         app:itemBackground="@color/colorPrimary"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        android:theme="@style/Widget.BottomNavigationView"/>
 
 </android.support.design.widget.CoordinatorLayout>

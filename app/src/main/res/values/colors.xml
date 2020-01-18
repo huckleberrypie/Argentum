@@ -4,7 +4,5 @@
     <color name="colorPrimaryDark">#C02359</color>
     <color name="colorAccent">#FFFFFF</color>
 
-    <color name="colorRed500">#f44336</color>
-    <color name="colorPink500">#e91e63</color>
-    <color name="colorBrown500">#795548</color>
+    <color name="colorPink500">#F57493</color>
 </resources>

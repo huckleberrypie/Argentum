@@ -6,10 +6,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import android.graphics.Bitmap;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private BottomNavigationView bottomNavigationView;
 
     public WebView mWebView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,49 +32,110 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        mWebView = (WebView) findViewById(R.id.webview);
-        mWebView.loadUrl("https://www.americangirl.com/shop/");
-
-        // Enable Javascript
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true); //vulnerable, but nobody cares
-
-        // Force links and redirects to open in the WebView instead of in a browser
-        mWebView.setWebViewClient(new WebViewClient());
+        if (!DetectConnection.checkInternetConnection(this)) {
+            mWebView = findViewById(R.id.webview);
+            mWebView.setWebViewClient(new myWebClient());
+            mWebView.setWebChromeClient(new myWebChromeClient());
+            mWebView.loadUrl("file:///android_res/raw/noconnection.html");
+            progressBar = findViewById(R.id.main_progress_bar);
+            progressBar.setMax(100);
+        } else {
+            mWebView = findViewById(R.id.webview);
+            mWebView.setWebViewClient(new myWebClient());
+            mWebView.setWebChromeClient(new myWebChromeClient());
+            mWebView.loadUrl("https://www.americangirl.com/shop/");
+            progressBar = findViewById(R.id.main_progress_bar);
+            progressBar.setMax(100);
+            WebSettings webSettings = mWebView.getSettings();
+            webSettings.setJavaScriptEnabled(true); //vulnerable, but nobody cares
+        }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.bottomDolls:
-                //bottomNavigationView.setItemBackgroundResource(R.color.colorPrimary);
-                mWebView.loadUrl("https://www.americangirl.com/shop/c/dolls");
+                if (!DetectConnection.checkInternetConnection(this)) {
+                    mWebView = findViewById(R.id.webview);
+                    mWebView.loadUrl("file:///android_res/raw/noconnection.html");
+                } else {
+                    mWebView.loadUrl("https://www.americangirl.com/shop/c/dolls");
+                }
                 break;
             case R.id.bottomClothes:
-                //bottomNavigationView.setItemBackgroundResource(R.color.colorRed500);
-                mWebView.loadUrl("https://www.americangirl.com/shop/c/clothing");
+                if (!DetectConnection.checkInternetConnection(this)) {
+                    mWebView = findViewById(R.id.webview);
+                    mWebView.loadUrl("file:///android_res/raw/noconnection.html");
+                } else {
+                    mWebView.loadUrl("https://www.americangirl.com/shop/c/clothing");
+                }
                 break;
             case R.id.bottomAccessories:
-                //bottomNavigationView.setItemBackgroundResource(R.color.colorRed500);
-                mWebView.loadUrl("https://www.americangirl.com/shop/c/furniture-accessories");
+                if (!DetectConnection.checkInternetConnection(this)) {
+                    mWebView = findViewById(R.id.webview);
+                    mWebView.loadUrl("file:///android_res/raw/noconnection.html");
+                } else {
+                    mWebView.loadUrl("https://www.americangirl.com/shop/c/furniture-accessories");
+                }
                 break;
             case R.id.bottomBooks:
-                //bottomNavigationView.setItemBackgroundResource(R.color.colorRed500);
-                mWebView.loadUrl("https://www.americangirl.com/shop/c/bookstore");
+                if (!DetectConnection.checkInternetConnection(this)) {
+                    mWebView = findViewById(R.id.webview);
+                    mWebView.loadUrl("file:///android_res/raw/noconnection.html");
+                } else {
+                    mWebView.loadUrl("https://www.americangirl.com/shop/c/bookstore");
+                }
                 break;
             case R.id.bottomAbout:
-                //bottomNavigationView.setItemBackgroundResource(R.color.colorBrown500);
-                mWebView.loadUrl("file:///android_res/raw/about.html");
+                    mWebView.loadUrl("file:///android_res/raw/about.html");
             break;
         }
         return true;
     }
 
+    public class myWebChromeClient extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            progressBar.setProgress(newProgress); //tell the progress bar to fill up
+        }
+    }
+
+    public class myWebClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+            progressBar.setProgress(0);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // TODO Auto-generated method stub
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+            progressBar.setProgress(100);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        mWebView.goBack();
+        if(mWebView.canGoBack()){
+            mWebView.goBack();
+        }else {
+            moveTaskToBack(true);
+            finish();
+        }
     }
 }
