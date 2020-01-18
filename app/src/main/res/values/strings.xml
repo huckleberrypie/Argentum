@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AG Store</string>
     <string name="action_settings">Settings</string>
-    <string name="version">0.1</string>
+    <string name="version">0.2</string>
 </resources>
