@@ -1,0 +1,2 @@
+### Improvements
+- Added connection check and progress bar
