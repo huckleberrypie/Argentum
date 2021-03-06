@@ -1,0 +1,3 @@
+### Improvements
+- Updated colours to better match the recent site revisions
+- Fixed bottombar icons visibility on certain devices
