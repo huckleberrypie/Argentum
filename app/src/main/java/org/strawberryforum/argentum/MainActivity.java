@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +16,6 @@ import android.graphics.Bitmap;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-    //Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
     public WebView mWebView;
@@ -28,9 +26,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -50,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             progressBar = findViewById(R.id.main_progress_bar);
             progressBar.setMax(100);
             WebSettings webSettings = mWebView.getSettings();
-            webSettings.setJavaScriptEnabled(true); //vulnerable, but nobody cares
+            webSettings.setJavaScriptEnabled(true);
+			webSettings.setDomStorageEnabled(true);
+			webSettings.setDefaultTextEncodingName("utf-8");
         }
     }
 

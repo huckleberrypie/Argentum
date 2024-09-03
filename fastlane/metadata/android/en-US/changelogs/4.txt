@@ -1,0 +1,5 @@
+### Improvements
+- Updated colours to better match the recent site revisions
+- Fixed broken Javascript
+- Updated app icon
+- App is now signed using yet another certificate
