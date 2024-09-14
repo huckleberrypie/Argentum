@@ -1,0 +1,3 @@
+### Improvements
+- Updated SDK version to API level 33; this should fix any installation warnings
+- Updated some strings/version codes which were overlooked in previous build
